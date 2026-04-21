@@ -21,7 +21,7 @@
 
         #question { font-size: 22px; color: #d63384; margin-bottom: 20px; min-height: 60px; }
 
-        /* বাটন কন্টেইনার ফিক্স করা হয়েছে */
+      
         .btns-container {
             display: flex; flex-direction: column; align-items: center;
             justify-content: flex-start; width: 100%; min-height: 350px;
@@ -31,14 +31,14 @@
         #yesBtn {
             background: #ff4d6d; color: white; border: none; padding: 15px 30px;
             border-radius: 50px; cursor: pointer; font-size: 18px; font-weight: bold;
-            transition: all 0.3s ease; z-index: 100; order: 1; /* Yes সবসময় ওপরে থাকবে */
+            transition: all 0.3s ease; z-index: 100; order: 1; 
             margin-bottom: 30px;
         }
 
         #noBtn {
             background: white; color: #6c757d; border: 1px solid #6c757d; padding: 12px 25px;
             border-radius: 50px; font-size: 16px; font-weight: bold;
-            transition: 0.1s; width: auto; min-width: 100px; order: 2; /* No নিচে থাকবে */
+            transition: 0.1s; width: auto; min-width: 100px; order: 2; 
         }
 
         #popup {
@@ -91,7 +91,7 @@
         };
 
         const moveNo = () => {
-            // স্ক্রিনের র্যান্ডম জায়গায় সরানো
+          
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 40) + 20;
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 40) + 20;
             noBtn.style.position = 'fixed';
