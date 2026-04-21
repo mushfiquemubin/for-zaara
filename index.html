@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For My Zaara 🥺</title>
+    <style>
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            margin: 0; height: 100vh; display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, #ffeef2 0%, #ffdee9 100%);
+            font-family: 'Segoe UI', sans-serif; overflow: hidden; text-align: center;
+        }
+
+        #main-box {
+            width: 95%; max-width: 400px; padding: 20px; 
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 20px; backdrop-filter: blur(10px);
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        #question { font-size: 22px; color: #d63384; margin-bottom: 20px; min-height: 60px; }
+
+        /* বাটন কন্টেইনার ফিক্স করা হয়েছে */
+        .btns-container {
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: flex-start; width: 100%; min-height: 350px;
+            position: relative; padding-top: 20px;
+        }
+
+        #yesBtn {
+            background: #ff4d6d; color: white; border: none; padding: 15px 30px;
+            border-radius: 50px; cursor: pointer; font-size: 18px; font-weight: bold;
+            transition: all 0.3s ease; z-index: 100; order: 1; /* Yes সবসময় ওপরে থাকবে */
+            margin-bottom: 30px;
+        }
+
+        #noBtn {
+            background: white; color: #6c757d; border: 1px solid #6c757d; padding: 12px 25px;
+            border-radius: 50px; font-size: 16px; font-weight: bold;
+            transition: 0.1s; width: auto; min-width: 100px; order: 2; /* No নিচে থাকবে */
+        }
+
+        #popup {
+            position: fixed; top: 10%; left: 50%; transform: translateX(-50%);
+            background: #ff4d6d; color: white; padding: 12px 20px;
+            border-radius: 10px; font-size: 14px; font-weight: bold; display: none;
+            z-index: 1001; width: 85%;
+        }
+
+        #result { display: none; animation: zoomIn 0.5s; }
+        #result img { width: 220px; border-radius: 15px; margin-bottom: 20px; }
+
+        @keyframes zoomIn { from { transform: scale(0); } to { transform: scale(1); } }
+        .heart { position: absolute; color: #ff4d6d; animation: fall linear forwards; z-index: 1; }
+        @keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div id="popup">Pookie pleasee become mine again! 🥺</div>
+
+    <div id="main-box">
+        <h1 id="question">Will you be my GF again, Zaara? 🥺</h1>
+        <div class="btns-container">
+            <button id="yesBtn">Yes</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <div id="result">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHYycWJ4OHR4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JnB2PTEmZXA9djFfaW50ZXJuYWxfZ2lmX2J5X2lkJmN0PWc/KztT2c4u8mYYUiMKdJ/giphy.gif">
+        <h2 style="color: #d63384; font-size: 22px;">I knew it! ❤️<br>আমি তুমাকে ভালোবাসি<br>আমি আর তুমি একসাথে থাকব সব সময়।<br>আর কখনো কোন ভুল হবে না।</h2>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const popup = document.getElementById('popup');
+        const mainBox = document.getElementById('main-box');
+        const result = document.getElementById('result');
+        const question = document.getElementById('question');
+
+        let clickCount = 0;
+        let yesScale = 1;
+
+        const showPopup = (msg) => {
+            popup.innerText = msg;
+            popup.style.display = 'block';
+            setTimeout(() => { popup.style.display = 'none'; }, 2000);
+        };
+
+        const moveNo = () => {
+            // স্ক্রিনের র্যান্ডম জায়গায় সরানো
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 40) + 20;
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 40) + 20;
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+            noBtn.style.zIndex = "1000";
+        };
+
+        const handleNoAction = (e) => {
+            e.preventDefault();
+            clickCount++;
+            
+            if (clickCount === 1) {
+                showPopup("Pookie pleasee become mine again! 🥺");
+                yesScale += 0.7;
+                yesBtn.style.transform = `scale(${yesScale})`;
+                question.innerText = "Zaara, please think again? 🎀";
+            } 
+            else if (clickCount === 2) {
+                showPopup("Zaara, don't break my heart... 💔");
+                yesScale += 1.2;
+                yesBtn.style.transform = `scale(${yesScale})`;
+                question.innerText = "I can't lose you... 😭";
+            }
+            else if (clickCount >= 3 && clickCount < 6) {
+                moveNo();
+            }
+            else {
+                noBtn.style.display = 'none';
+                showPopup("Only one choice now! 😉");
+            }
+        };
+
+        noBtn.addEventListener('touchstart', handleNoAction);
+        noBtn.addEventListener('click', handleNoAction);
+
+        yesBtn.addEventListener('click', () => {
+            mainBox.style.display = 'none';
+            result.style.display = 'block';
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = Math.random() * 2 + 2 + 's';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 4000);
+            }, 300);
+        });
+    </script>
+</body>
+</html>
